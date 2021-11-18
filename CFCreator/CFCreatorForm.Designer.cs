@@ -48,8 +48,13 @@ namespace CFCreator
             this.srcClustColLabel = new System.Windows.Forms.Label();
             this.SrcClustCols = new System.Windows.Forms.NumericUpDown();
             this.DrawWafer = new System.Windows.Forms.Button();
-            this.CreateCF = new System.Windows.Forms.Button();
             this.ClickOrderCheckBox = new System.Windows.Forms.CheckBox();
+            this.CreateCF = new System.Windows.Forms.Button();
+            this.lblTarget = new System.Windows.Forms.Label();
+            this.lblSource = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.tsmiFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiOpenRecipe = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TgtRegRows)).BeginInit();
@@ -60,6 +65,7 @@ namespace CFCreator
             ((System.ComponentModel.ISupportInitialize)(this.SrcRegCols)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SrcClustRows)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SrcClustCols)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -68,13 +74,17 @@ namespace CFCreator
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.06504F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75.93496F));
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblTarget, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblSource, 1, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(726, 651);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(726, 627);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // flowLayoutPanel1
@@ -102,8 +112,8 @@ namespace CFCreator
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.tableLayoutPanel1.SetRowSpan(this.flowLayoutPanel1, 2);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(168, 645);
+            this.tableLayoutPanel1.SetRowSpan(this.flowLayoutPanel1, 4);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(168, 621);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
             // tgtRegRowLabel
@@ -321,17 +331,6 @@ namespace CFCreator
             this.DrawWafer.UseVisualStyleBackColor = true;
             this.DrawWafer.Click += new System.EventHandler(this.DrawWafer_Click);
             // 
-            // CreateCF
-            // 
-            this.CreateCF.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CreateCF.Location = new System.Drawing.Point(3, 439);
-            this.CreateCF.Name = "CreateCF";
-            this.CreateCF.Size = new System.Drawing.Size(148, 42);
-            this.CreateCF.TabIndex = 3;
-            this.CreateCF.Text = "Create Cycle File";
-            this.CreateCF.UseVisualStyleBackColor = true;
-            this.CreateCF.Click += new System.EventHandler(this.CreateCF_Click);
-            // 
             // ClickOrderCheckBox
             // 
             this.ClickOrderCheckBox.AutoSize = true;
@@ -343,15 +342,76 @@ namespace CFCreator
             this.ClickOrderCheckBox.Text = "Order cycle file by click";
             this.ClickOrderCheckBox.UseVisualStyleBackColor = true;
             // 
+            // CreateCF
+            // 
+            this.CreateCF.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CreateCF.Location = new System.Drawing.Point(3, 439);
+            this.CreateCF.Name = "CreateCF";
+            this.CreateCF.Size = new System.Drawing.Size(148, 42);
+            this.CreateCF.TabIndex = 3;
+            this.CreateCF.Text = "Create Cycle File";
+            this.CreateCF.UseVisualStyleBackColor = true;
+            this.CreateCF.Click += new System.EventHandler(this.CreateCF_Click);
+            // 
+            // lblTarget
+            // 
+            this.lblTarget.AutoSize = true;
+            this.lblTarget.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblTarget.Location = new System.Drawing.Point(177, 0);
+            this.lblTarget.Name = "lblTarget";
+            this.lblTarget.Size = new System.Drawing.Size(546, 20);
+            this.lblTarget.TabIndex = 3;
+            this.lblTarget.Text = "Target";
+            this.lblTarget.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblSource
+            // 
+            this.lblSource.AutoSize = true;
+            this.lblSource.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblSource.Location = new System.Drawing.Point(177, 313);
+            this.lblSource.Name = "lblSource";
+            this.lblSource.Size = new System.Drawing.Size(546, 20);
+            this.lblSource.TabIndex = 4;
+            this.lblSource.Text = "Source";
+            this.lblSource.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiFile});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(726, 24);
+            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // tsmiFile
+            // 
+            this.tsmiFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiOpenRecipe});
+            this.tsmiFile.Name = "tsmiFile";
+            this.tsmiFile.Size = new System.Drawing.Size(37, 20);
+            this.tsmiFile.Text = "File";
+            // 
+            // tsmiOpenRecipe
+            // 
+            this.tsmiOpenRecipe.Name = "tsmiOpenRecipe";
+            this.tsmiOpenRecipe.Size = new System.Drawing.Size(180, 22);
+            this.tsmiOpenRecipe.Text = "Open Recipe";
+            this.tsmiOpenRecipe.Click += new System.EventHandler(this.tsmiOpenRecipe_Click);
+            // 
             // CFCreatorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(726, 651);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "CFCreatorForm";
             this.Text = "CFCreator";
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TgtRegRows)).EndInit();
@@ -362,7 +422,10 @@ namespace CFCreator
             ((System.ComponentModel.ISupportInitialize)(this.SrcRegCols)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SrcClustRows)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SrcClustCols)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -389,6 +452,11 @@ namespace CFCreator
         private System.Windows.Forms.Label srcClustRowLabel;
         private System.Windows.Forms.Label srcClustColLabel;
         private System.Windows.Forms.CheckBox ClickOrderCheckBox;
+        private System.Windows.Forms.Label lblTarget;
+        private System.Windows.Forms.Label lblSource;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem tsmiFile;
+        private System.Windows.Forms.ToolStripMenuItem tsmiOpenRecipe;
     }
 }
 

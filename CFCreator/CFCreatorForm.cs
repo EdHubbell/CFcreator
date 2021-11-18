@@ -10,11 +10,14 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using static CFCreator.Functions;
 using System.Drawing.Drawing2D;
+using NLog;
 
 namespace CFCreator
 {
     public partial class CFCreatorForm : Form
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public CFCreatorForm()
         {
             InitializeComponent();
@@ -30,8 +33,8 @@ namespace CFCreator
                 Name = "Source",
                 Dock = DockStyle.Fill
             });
-            tableLayoutPanel1.Controls.Add(WaferMaps[0], 1, 0);
-            tableLayoutPanel1.Controls.Add(WaferMaps[1], 1, 1);
+            tableLayoutPanel1.Controls.Add(WaferMaps[0], 1, 1);
+            tableLayoutPanel1.Controls.Add(WaferMaps[1], 1, 3);
 
         }
 
@@ -112,6 +115,32 @@ namespace CFCreator
             //sets picturebox image to the edited bitmap
             pbx.Image = bitmap;
             WaferMaps[n].DrawTiles(pbx);
+        }
+
+        private void tsmiOpenRecipe_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Multiselect = false;
+                openFileDialog.InitialDirectory = @"C:\";
+                openFileDialog.Filter = "XREC files (*.xrec)|*.xrec";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    MessageBox.Show(openFileDialog.FileName);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+            }
+
+
+
         }
     }
 }
