@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using NLog;
-using XC_Common;
 
 namespace XC_Database
 {
@@ -37,29 +36,29 @@ namespace XC_Database
             }
         }
 
-        public static void UpsertTileProbeDataTask(string connectionString, TileMeasurementXML tileMeasurementXML )
-        {
-            try
-            {
-                logger.Info("entering {0}.{1}", MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+        //public static void UpsertTileProbeDataTask(string connectionString, TileMeasurementXML tileMeasurementXML )
+        //{
+        //    try
+        //    {
+        //        logger.Info("entering {0}.{1}", MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
                               
-                XMLInputParameters xmlIn = new XMLInputParameters();
-                xmlIn.Upsert("Task", "UpsertTileMeasurementXML");
-                xmlIn.InsertRawXML (tileMeasurementXML.AsXMLString());
+        //        XMLInputParameters xmlIn = new XMLInputParameters();
+        //        xmlIn.Upsert("Task", "UpsertTileMeasurementXML");
+        //        xmlIn.InsertRawXML (tileMeasurementXML.AsXMLString());
 
-                XmlDocument xDoc = SQLUtil.GetXmlDocFromStoredProcedure(connectionString, "XProbeTask", xmlIn);
-            }
+        //        XmlDocument xDoc = SQLUtil.GetXmlDocFromStoredProcedure(connectionString, "XProbeTask", xmlIn);
+        //    }
 
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-            }
+        //    catch (Exception ex)
+        //    {
+        //        logger.Error(ex);
+        //    }
 
-            finally
-            {
-                logger.Info("exiting  {0}.{1}", MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            }
-        }
+        //    finally
+        //    {
+        //        logger.Info("exiting  {0}.{1}", MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+        //    }
+        //}
 
     }
 

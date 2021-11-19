@@ -9,7 +9,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using NLog;
 
-namespace XC_Common
+namespace XDataShared
 {
     public class XMLBaseObject
     {

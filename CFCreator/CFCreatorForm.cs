@@ -11,6 +11,7 @@ using System.Diagnostics;
 using static CFCreator.Functions;
 using System.Drawing.Drawing2D;
 using NLog;
+using XferPrintLib.Configuration;
 
 namespace CFCreator
 {
@@ -40,10 +41,10 @@ namespace CFCreator
 
         private void DrawWafer_Click(object sender, EventArgs e)
         {
-            WaferMaps[0].RegGridSize = new Size ((int)TgtRegCols.Value, (int)TgtRegRows.Value);
-            WaferMaps[0].ClustGridSize = new Size((int)TgtPrintCols.Value, (int)TgtPrintRows.Value);
-            WaferMaps[1].RegGridSize = new Size((int)SrcRegCols.Value, (int)SrcRegRows.Value);
-            WaferMaps[1].ClustGridSize = new Size((int)SrcClustCols.Value, (int)SrcClustRows.Value);
+            WaferMaps[0].RegGridSize = new Size ((int)nudTgtRegCols.Value, (int)nudTgtRegRows.Value);
+            WaferMaps[0].ClustGridSize = new Size((int)nudTgtPrintCols.Value, (int)nudTgtPrintRows.Value);
+            WaferMaps[1].RegGridSize = new Size((int)nudSrcRegCols.Value, (int)nudSrcRegRows.Value);
+            WaferMaps[1].ClustGridSize = new Size((int)nudSrcClustCols.Value, (int)nudSrcClustRows.Value);
             WaferMaps[0].pictureBox.BackgroundImage = new Bitmap(1000, 1000);
             WaferMaps[0].pictureBox.Image = new Bitmap(1000, 1000);
             WaferMaps[1].pictureBox.BackgroundImage = new Bitmap(1000, 1000);
@@ -130,7 +131,23 @@ namespace CFCreator
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    MessageBox.Show(openFileDialog.FileName);
+                    //MessageBox.Show("Now to open the file " + openFileDialog.FileName);
+
+                    XferPrintRecipe recipe = new XferPrintRecipe();
+
+                    // Deserializes the .xrec file into a code object that is a lot easier to play with. No direct parsing code needed. 
+                    recipe = ProcessRecipeReaderHelper.LoadRecipe(openFileDialog.FileName);
+
+                    // Fill the controls on the screen with values from the loaded recipe.
+                    nudTgtRegRows.Value = recipe.Target.TargetYClusters;
+                    nudTgtRegCols.Value = recipe.Target.TargetXClusters;
+                    nudTgtPrintRows.Value = recipe.Target.TargetYPrints ;
+                    nudTgtPrintCols.Value = recipe.Target.TargetXPrints ;
+                    nudSrcRegRows.Value = recipe.Source.SourceYRegions ;
+                    nudSrcRegCols.Value = recipe.Source.SourceXRegions;
+                    nudSrcClustRows.Value = recipe.Source.SourceYClusters;
+                    nudSrcClustCols.Value = recipe.Source.SourceXClusters;
+
                 }
 
             }
