@@ -18,7 +18,7 @@ namespace CFCreator
         public int K { get; }
         public int L { get; }
 
-        public override string ToString() => $"({I}, {J}, {K}, {L})";
+        public override string ToString() => $"{I},{J},{K},{L}";
     }
     public class MapTile
     {

@@ -5,6 +5,8 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
+using System.Text;
+using System.IO;
 
 namespace CFCreator
 {
@@ -14,8 +16,8 @@ namespace CFCreator
         //initializes list of wafer maps
         public static List<WaferMap> WaferMaps = new List<WaferMap>();
 
-        //initializes bool for ClickOrderCheckBox
-        public static bool ordercheck;
+        //string builder
+        public static StringBuilder sb = new StringBuilder();
 
         ///<summary>
         ///Bool to check if rectangle is inside circle
@@ -42,24 +44,64 @@ namespace CFCreator
         {
             foreach (WaferMap Wafer in Functions.WaferMaps)
             {
-                Debug.WriteLine((Functions.WaferMaps.IndexOf(Wafer)));
-                if (ordercheck == false) 
+                Wafer.ClickedTiles.Clear();
+                foreach (MapTile tile in Wafer.MapTileList.Where(x => x.Color == Color.Green))
                 {
-                    Wafer.GenClickedTiles.Clear();
-                    foreach (MapTile tile in Wafer.MapTileList.Where(x => x.Color == Color.Green))
-                    {
-                        Wafer.GenClickedTiles.Add(new TileID(tile.ID.I, tile.ID.J, tile.ID.K, tile.ID.L));
-                    }
-                    foreach (TileID clickedids in Wafer.OrderClickedTiles)
-                        Debug.WriteLine(clickedids.ToString());
-                }
+                    Wafer.ClickedTiles.Add(new TileID(tile.ID.I, tile.ID.J, tile.ID.K, tile.ID.L));
 
-                else
+                }
+                
+            }
+
+        }
+        public static void WriteCF(CFCreatorForm form)
+        {
+            int numlines = WaferMaps[0].ClickedTiles.Count();
+            if (WaferMaps[1].ClickedTiles.Count() * CFCreatorForm.picksperfield < numlines)
+            {
+                Debug.WriteLine("insufficient picks to complete target");
+            }
+            else
+            {
+                string filepath;
+                SaveFileDialog savefile = new SaveFileDialog();
+                savefile.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                savefile.FilterIndex = 2;
+                savefile.RestoreDirectory = true;
+                savefile.InitialDirectory = @"X:\";
+
+                sb.Clear();
+                sb.Append("UniqueID, Pick.WaferID, Pick.RegionRow, Pick.RegionColumn, Pick.Row, Pick.Column, Pick.Index, Place.WaferID, Place.RegionRow, Place.RegionColumn, Place.Row, Place.Column\r\n");
+                int srcfield = 1;
+                int pkindex = CFCreatorForm.startindex;
+                
+                for (int i = 1; i <= numlines; i++)
                 {
-                    foreach (TileID clickedids in Wafer.GenClickedTiles)
-                        Debug.WriteLine(clickedids.ToString());
+                    if (pkindex > CFCreatorForm.picksperfield)
+                    { 
+                        srcfield++;
+                        pkindex = 1;
+                    }
+                    string cfline = new string
+                        (
+                        i.ToString() + "," +
+                        CFCreatorForm.sourceid + "," +
+                        WaferMaps[1].ClickedTiles[srcfield-1].ToString() + "," +
+                        pkindex + "," +
+                        CFCreatorForm.targetid + "," +
+                        WaferMaps[0].ClickedTiles[i-1].ToString() + "\r\n"
+                        );
+                    sb.Append(cfline);
+                    pkindex++;
+                }
+                Debug.WriteLine(sb);
+                if (savefile.ShowDialog() == DialogResult.OK)
+                {
+                    filepath = savefile.FileName;
+                    File.WriteAllText(filepath, sb.ToString());
                 }
             }
+
         }
     }
 }

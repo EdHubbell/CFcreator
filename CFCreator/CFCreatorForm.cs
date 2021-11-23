@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
 using static CFCreator.Functions;
 using System.Drawing.Drawing2D;
 using NLog;
@@ -39,12 +32,16 @@ namespace CFCreator
 
         }
 
+        public static string targetid;
+        public static string sourceid;
+        public static int picksperfield;
+        public static int startindex;
         private void DrawWafer_Click(object sender, EventArgs e)
         {
-            WaferMaps[0].RegGridSize = new Size ((int)nudTgtRegCols.Value, (int)nudTgtRegRows.Value);
-            WaferMaps[0].ClustGridSize = new Size((int)nudTgtPrintCols.Value, (int)nudTgtPrintRows.Value);
-            WaferMaps[1].RegGridSize = new Size((int)nudSrcRegCols.Value, (int)nudSrcRegRows.Value);
-            WaferMaps[1].ClustGridSize = new Size((int)nudSrcClustCols.Value, (int)nudSrcClustRows.Value);
+            WaferMaps[0].RegGridSize = new Size ((int)TgtRegCols.Value, (int)TgtRegRows.Value);
+            WaferMaps[0].ClustGridSize = new Size((int)TgtPrintCols.Value, (int)TgtPrintRows.Value);
+            WaferMaps[1].RegGridSize = new Size((int)SrcRegCols.Value, (int)SrcRegRows.Value);
+            WaferMaps[1].ClustGridSize = new Size((int)SrcClustCols.Value, (int)SrcClustRows.Value);
             WaferMaps[0].pictureBox.BackgroundImage = new Bitmap(1000, 1000);
             WaferMaps[0].pictureBox.Image = new Bitmap(1000, 1000);
             WaferMaps[1].pictureBox.BackgroundImage = new Bitmap(1000, 1000);
@@ -58,8 +55,24 @@ namespace CFCreator
         }
         private void CreateCF_Click(object sender, EventArgs e)
         {
-            Functions.ordercheck = ClickOrderCheckBox.Checked;
-            Functions.CountTiles(this);
+            //uses a 2nd list of clicked tiles in order to preserve the OrderClickedTiles list
+            //allows user to check/uncheck box without losing the order they clicked
+            if (TgtClickOrderCheckBox.Checked == false)
+            {
+                Functions.CountTiles(this);
+            }
+            else
+            {
+                foreach (WaferMap wafer in WaferMaps)
+                {
+                    wafer.ClickedTiles = wafer.OrderClickedTiles;
+                }
+            }
+            targetid = TargetID.Text;
+            sourceid = SourceID.Text;
+            picksperfield = (int)PicksPerField.Value;
+            startindex = (int)StartIndex.Value;
+            Functions.WriteCF(this);
         }
         
         //Creates a list of map tiles, draws the overlay grid, then calls WaferMaps.DrawTiles
@@ -77,16 +90,16 @@ namespace CFCreator
             //Use 'center' and 'radius' for the CheckRectInCircle function
             Point center = new Point(bitmap.Width / 2, bitmap.Height / 2);
             double radius = Math.Min((cellSize.Width * size.Width) + cellSize.Width, (cellSize.Height * size.Height) + cellSize.Height) / 2;
-            for (int i = 0; i < regions.Width; i++)
+            for (int j = 0; j < regions.Height; j++)
             {
-                for (int j = 0; j < regions.Height; j++)
+                for (int i = 0; i < regions.Width; i++)
                 {
-                    for (int k = 0; k < clusters.Width; k++)
+                    for (int l = 0; l < clusters.Height; l++)
                     {
-                        for (int l = 0; l < clusters.Height; l++)
+                        for (int k = 0; k < clusters.Width; k++)
                         {
-                            Rectangle rectangle = new Rectangle((i * regionSize.Width) + (k * cellSize.Width), (j * regionSize.Height) + (l * cellSize.Height), cellSize.Width, cellSize.Height);
-                            TileID loc = new TileID(regions.Height - j, i + 1, clusters.Height - l, k + 1);
+                            Rectangle rectangle = new Rectangle((i * regionSize.Width) + (k * cellSize.Width), ((regions.Height - j - 1) * regionSize.Height) + ((clusters.Height - l - 1) * cellSize.Height), cellSize.Width, cellSize.Height);
+                            TileID loc = new TileID(j + 1, i + 1, l + 1, k + 1);
                             WaferMaps[n].MapTileList.Add(new MapTile(rectangle, loc));
                             //Use this to draw only tiles inscribed in a circle
                             //if (Functions.CheckRectInCircle(rectangle, center, radius))
@@ -139,14 +152,14 @@ namespace CFCreator
                     recipe = ProcessRecipeReaderHelper.LoadRecipe(openFileDialog.FileName);
 
                     // Fill the controls on the screen with values from the loaded recipe.
-                    nudTgtRegRows.Value = recipe.Target.TargetYClusters;
-                    nudTgtRegCols.Value = recipe.Target.TargetXClusters;
-                    nudTgtPrintRows.Value = recipe.Target.TargetYPrints ;
-                    nudTgtPrintCols.Value = recipe.Target.TargetXPrints ;
-                    nudSrcRegRows.Value = recipe.Source.SourceYRegions ;
-                    nudSrcRegCols.Value = recipe.Source.SourceXRegions;
-                    nudSrcClustRows.Value = recipe.Source.SourceYClusters;
-                    nudSrcClustCols.Value = recipe.Source.SourceXClusters;
+                    TgtRegRows.Value = recipe.Target.TargetYClusters;
+                    TgtRegCols.Value = recipe.Target.TargetXClusters;
+                    TgtPrintRows.Value = recipe.Target.TargetYPrints ;
+                    TgtPrintCols.Value = recipe.Target.TargetXPrints ;
+                    SrcRegRows.Value = recipe.Source.SourceYRegions ;
+                    SrcRegCols.Value = recipe.Source.SourceXRegions;
+                    SrcClustRows.Value = recipe.Source.SourceYClusters;
+                    SrcClustCols.Value = recipe.Source.SourceXClusters;
 
                 }
 
@@ -159,5 +172,6 @@ namespace CFCreator
 
 
         }
+
     }
 }
