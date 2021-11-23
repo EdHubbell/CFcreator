@@ -26,8 +26,10 @@ namespace CFCreator
         }
 
         public List<MapTile> MapTileList = new List<MapTile>();
+        //rawClickedTiles is the pre-sorted list
+        public List<TileID> rawClickedTiles = new List<TileID>();
         public List<TileID> OrderClickedTiles = new List<TileID>();
-        public List<TileID> GenClickedTiles = new List<TileID>();
+        public List<TileID> ClickedTiles = new List<TileID>();
         private RectangleF InfoRectangle;
         public Size RegGridSize = new Size(10, 10);
         public Size ClustGridSize = new Size(10, 10);
