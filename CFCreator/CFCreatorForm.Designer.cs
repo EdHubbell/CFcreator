@@ -103,13 +103,13 @@ namespace CFCreator
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75.93496F));
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 42);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 40);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(6);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1384, 1281);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1384, 1283);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // flowLayoutPanel1
@@ -132,7 +132,7 @@ namespace CFCreator
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(6);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.tableLayoutPanel1.SetRowSpan(this.flowLayoutPanel1, 2);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(321, 1269);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(321, 1271);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
             // TargetIDLabel
@@ -717,7 +717,7 @@ namespace CFCreator
             this.tsmiFile});
             this.msMain.Location = new System.Drawing.Point(0, 0);
             this.msMain.Name = "msMain";
-            this.msMain.Size = new System.Drawing.Size(1384, 42);
+            this.msMain.Size = new System.Drawing.Size(1384, 40);
             this.msMain.TabIndex = 1;
             this.msMain.Text = "menuStrip2";
             // 
@@ -726,13 +726,13 @@ namespace CFCreator
             this.tsmiFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiOpenRecipe});
             this.tsmiFile.Name = "tsmiFile";
-            this.tsmiFile.Size = new System.Drawing.Size(71, 38);
+            this.tsmiFile.Size = new System.Drawing.Size(71, 36);
             this.tsmiFile.Text = "File";
             // 
             // tsmiOpenRecipe
             // 
             this.tsmiOpenRecipe.Name = "tsmiOpenRecipe";
-            this.tsmiOpenRecipe.Size = new System.Drawing.Size(359, 44);
+            this.tsmiOpenRecipe.Size = new System.Drawing.Size(283, 44);
             this.tsmiOpenRecipe.Text = "Open Recipe";
             this.tsmiOpenRecipe.Click += new System.EventHandler(this.tsmiOpenRecipe_Click);
             // 
