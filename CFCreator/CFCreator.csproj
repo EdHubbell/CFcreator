@@ -22,7 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\XDataShared\XDataShared.csproj" />
-    <ProjectReference Include="..\XferPrintShared\XferPrintShared.csproj" />
+    <ProjectReference Include="..\XferPrintLib\XferPrintLib.csproj" />
   </ItemGroup>
 
 </Project>
